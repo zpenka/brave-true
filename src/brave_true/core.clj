@@ -1,10 +1,16 @@
 (ns brave-true.core
   (:gen-class))
 
+; Chapter 1: Building, Running, and the REPL
+
 (defn -main
   "I don't do a whole lot ... yet."
   [& args]
   (println "I'm a little teapot!"))
+
+; Chapter 2: How to Use Emacs, an Excellent Clojure Editor
+
+; Chapter 3: Do Things: A Clojure Crash Course
 
 ; The Shire's Next Top Model
 (def asym-hobbit-body-parts
@@ -65,7 +71,7 @@
           part
           (recur remaining (+ accumulated-size (:size (first remaining))))))))
 
-; Chapter 1 Exercises
+; Chapter 3 Exercises
 
 ; 1. Use `str`, `vector`, `list`, `hash-map` and `hash-set` functions
 (str "Hello " "there.")
@@ -86,3 +92,5 @@
   "Create a custom decrementor"
   [dec-by]
   #(- % dec-by))
+
+; Chapter 4: Core Functions In Depth
