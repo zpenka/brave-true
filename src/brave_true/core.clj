@@ -94,3 +94,60 @@
   #(- % dec-by))
 
 ; Chapter 4: Core Functions In Depth
+
+; Note: This chapter has a lot of semantic, abstract concepts that are new or
+;       not solid in my understanding of them. Thus, I will be taking notes in
+;       comments like this
+
+; Programming to Abstraction
+
+; Comparison of Clojure to Elisp to illustrate programming to abstraction
+; elsip: `mapcar` -> derive new list, `maphash` -> map over hashmap
+; Clojure: `map` -> derive new list or map over a map
+
+; Clojure defines `map` and `reduce` functions in terms of _sequence abstraction_
+; not in terms of specific data structures.
+
+; As long as a data structure responds to the core sequence operations (`first`,
+; `rest`, and `cons`), it will work with `map`, `reduce`, and oodles of other
+; sequence functions for free. That is what is meant by programming to
+; abstraction, and it is a central tenet of Clojure philosophy
+
+; Treating Lists, Vectors, Sets, and Maps as Sequences
+
+; In Clojure, a sequence refers to a collection of elements organized in linear
+; order.
+
+; Note that sequences are not defined in terms of lists, vectors, sets or maps.
+; Clojure is designed to allow us to think and program in such abstract terms
+; as much as possible, typically by implementing functions in terms of data
+; structures abstractions
+
+; Terms like 'seq library', or 'seq functions' refer to functions that operate
+; on sequences
+
+; If the core sequence functions `first`, `rest` and `cons` work on a data
+; structure, you can say the data structure implements the sequence abstraction
+
+(defn titleize
+  [topic]
+  (str topic " for the Brave and True"))
+
+; Vectors
+(map titleize ["Hampsters" "Ragnarok"])
+
+; Lists
+(map titleize '("Empathy" "Decorating"))
+
+; Sets
+(map titleize #{"Elbows" "Soap Carving"})
+
+; Maps
+(map #(titleize (second %)) {:uncomfortable-thing "Winking"})
+
+; `first`, `rest`, and `cons`
+
+; It doesn't matter how a particular data structure is implemented: when it
+; comes to using seq functions on a data structure, all Clojure asks is "can I
+; `first`, `rest`, and `cons` it?" If yes, then you can use the seq lib with
+; that data structure
