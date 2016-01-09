@@ -4,7 +4,7 @@ Exercises and Explorations in Clojure
 
 ## Installation
 
-* Ensure Java (1.6 or higher) and Leiningen (Clojure project manager)
+* Ensure Java (1.6 or higher) and Leiningen (Clojure project manager) are both installed
 * Clone this repository
 * `cd` into the repository
 * Run `lein run` to run the program in Clojure
