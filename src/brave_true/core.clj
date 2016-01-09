@@ -403,3 +403,59 @@
   ([n] (cons n (lazy-seq (even-numbers (+ n 2))))))
 
 (take 10 (even-numbers))
+
+; The Collection Abstraction
+
+; All of Clojure's core data structures-vectors, maps, lists and sets-take part
+; in both abstractions
+
+; The sequence abstraction is about operating on members individually, whereas
+; the collection abstraction is about the data structure as a whole. For example
+; the collection functions `count`, `empty?` and `every?` aren't about any
+; individual element; they're about the whole
+
+(empty? [])
+; true
+
+(empty? ["no!"])
+; false
+
+; `into`
+
+; Many sequence functions return a seq rather than the original data structure
+; You'll probably want to convert the return value back into the original value,
+; and `into` lets you do that
+
+(map identity {:sunlight-reaction "Glitter!"})
+; ([:sunlight-reaction "Glitter!"])
+
+(into {} (map identity {:sunlight-reaction "Glitter!"}))
+; {:sunlight-reaction "Glitter!"}
+
+; From vector to set
+(into #{} (map identity [:garlic-clove :garlic-clove]))
+; #{:garlic-clove}
+
+; Don't need to start with empty structure
+(into ["cherry"] '("pine" "spruce"))
+; ["cherry" "pine" "spruce"]
+
+; `conj`
+
+; `conj` also adds elements to a collection, but it does it in a slightly
+; different way
+
+(conj [0] [1])
+; [0 [1]]
+
+(into [0] [1])
+; [0 1]
+
+; Here is how to do that with `conj`
+(conj [0] 1)
+
+; Notice that the second argument is a scalar value, where `into`'s second
+; argument must be a collection
+
+; Key Difference: `conj`'s second argument is a rest parameter, whereas `into`'s
+; second argument is a seqable data structure
