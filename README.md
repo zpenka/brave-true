@@ -1,36 +1,18 @@
 # brave-true
 
-FIXME: description
+Exercises and Explorations in Clojure
 
 ## Installation
 
-Download from http://example.com/FIXME.
+* Ensure Java (1.6 or higher) and Leiningen (Clojure project manager)
+* Clone this repository
+* `cd` into the repository
+* Run `lein run` to run the program in Clojure
+* Alternatively, run `lein uberjar` to compile the project into Java
 
-## Usage
+## Notes, Acknowledgements
 
-FIXME: explanation
-
-    $ java -jar brave-true-0.1.0-standalone.jar [args]
-
-## Options
-
-FIXME: listing of options this app accepts.
-
-## Examples
-
-...
-
-### Bugs
-
-...
-
-### Any Other Sections
-### That You Think
-### Might be Useful
-
-## License
-
-Copyright © 2016 FIXME
+Exercises and notes completed alongside Daniel Higginbotham's _Clojure for the Brave and True_
 
 Distributed under the Eclipse Public License either version 1.0 or (at
 your option) any later version.
