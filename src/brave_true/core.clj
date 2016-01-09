@@ -196,3 +196,74 @@
 ; Programming to abstraction gives you power by letting you use libraries
 ; of functions on different data structures regardless of how those data
 ; structures are implemented
+
+; Seq Function Examples
+
+; map
+(map inc [1 2 3])
+; (2 3 4)
+
+; map with multiple collections
+(map str ["a" "b" "c"] ["A" "B" "C"])
+; ("aA" "bB" "cC")
+
+(def human-consumption    [8.1 7.3 6.6 5.0])
+(def critter-consumption  [0.0 0.2 0.3 1.1])
+(defn unify-diet-data
+  [human critter]
+  {:human human
+   :critter critter})
+
+(map unify-diet-data human-consumption critter-consumption)
+
+; You can even pass map a collection of functions. You could use this if you
+; wanted to perform a set of calculations on different collections of numbers
+
+(def sum #(reduce + %))
+(def avg #(/ (sum %) (count %)))
+(defn stats
+  [numbers]
+  (map #(% numbers) [sum count avg]))
+
+(stats [3 4 10])
+; (17 3 17/3)
+
+(stats [80 1 44 13 6])
+; (144 5 144/5)
+
+; Clojurists use `map` to retrieve the value associated with a keyword from a
+; collection of map data structures. Because keywords can be used as functions
+; you can do this succinctly
+(def identities
+  [{:alias "Batman" :real "Bruce Wayne"}
+   {:alias "Spider-Man" :real "Peter Parker"}
+   {:alias "Santa" :real "Your Mom"}
+   {:alias "Easter Bunny" :real "Your Dad"}])
+
+(map :real identities)
+; ("Bruce Wayne" "Peter Parker" "Your Mom" "Your Dad")
+
+; `reduce`
+
+; `reduce` is typically used to process each element in a sequence to build a
+; result
+
+; Some more ways you can use it:
+
+; 1. transform a map's values, producing a new map with the same keys but with
+; updated values
+(reduce (fn [new-map [key values]]
+          (assoc new-map key (inc val)))
+        {}
+        {:max 30 :min 10})
+; {max 31 :min 11}
+
+; 2. filter out keys from a map based on their value
+(reduce (fn [new-map [key val]]
+          (if (> val 4)
+            (assoc new-map key val)
+            new-map))
+        {}
+        {:human 4.1
+         :critter 3.9})
+; {:human 4.1}
