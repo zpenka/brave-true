@@ -151,3 +151,48 @@
 ; comes to using seq functions on a data structure, all Clojure asks is "can I
 ; `first`, `rest`, and `cons` it?" If yes, then you can use the seq lib with
 ; that data structure
+
+; Abstraction Through Indirection
+
+; In programming, indirection is a generic term for the mechanism a language
+; employs so that one name can have multiple, related meanings.
+
+; Polymorphism is one way that Clojure provides indirection. Polymorphic functions
+; dispatch to different function bodies based on the type of the argument
+; supplied
+
+; For sequences, Clojure creates indirection by doing a kind of lightweight type
+; conversion, producing a data structure that works with an abstraction's
+; functions. Whenever Clojure expects a sequence-for example, when you call
+; `map`, `first`, `rest`, `cons`- it calls the `seq` function on the data
+; structure in question to obtain a data structure that allows for `first`,
+; `rest` and `cons`
+
+(seq '(1 2 3))
+; (1 2 3)
+
+(seq [1 2 3])
+; (1 2 3)
+
+(seq #{1 2 3})
+; (1 2 3)
+
+(seq {:name "Bill Compton" :occupation "Dead mopey guy"})
+; ([:name "Bill Compton"] [:occupation "Dead mopey guy"])
+
+; First, `seq` always returns a value that looks and behaves like a list
+; this value is usually called a sequence
+
+; Second, the seq of a map consists of two-element key-value vectors
+; That's why `map` treats your maps like lists of vectors!
+
+; Convert the seq back to a map by using `into`
+(into {} (seq {:a 1 :b 2 :c 3}))
+; {:a 1, :c 3, :b 2}
+
+; The takeaway here is that it's powerful to focus on what we can _do_ with a
+; data structure and to ignore, as much as possible, its implementation
+
+; Programming to abstraction gives you power by letting you use libraries
+; of functions on different data structures regardless of how those data
+; structures are implemented
