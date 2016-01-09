@@ -459,3 +459,73 @@
 
 ; Key Difference: `conj`'s second argument is a rest parameter, whereas `into`'s
 ; second argument is a seqable data structure
+
+; Function Functions
+
+; `apply`
+
+; `apply` _explodes_ a seqable data structure so it can be passed to a function
+; that expects a rest parameter
+
+; Example, `max` takes any number of arguments and returns the greatest of all
+; the arguments
+
+(max 0 1 2)
+; 2
+
+(max [0 1 2])
+; [0 1 2]
+
+; This doesn't return the greatest element in a vector because `max` returns the
+; greatest of all the arguments passed to it, and in this case we only passed
+; one
+
+(apply max [0 1 2])
+; 2
+
+; `apply` explodes the data structure and passes all the parts as separate arguments
+
+; `partial`
+
+; `partial` takes a function and any number of arguments. It then returns a new
+; function. When you call the returned function, it calls the original function
+; with the original arguments you supplied it along with the new arguments
+
+(def add10 (partial + 10))
+(add10 3)
+; 13
+
+(add10 5)
+;15
+
+(def add-missing-elements
+  (partial conj ["water" "earth" "air"]))
+
+(add-missing-elements "unobtainium" "adamantium")
+; "water" "earth" "air" "unobtainium" "adamantium"
+
+(defn lousy-logger
+  [log-level message]
+  (condp = log-level
+    :warn (clojure.string/lower-case message)
+    :emergency (clojure.string/upper-case message)))
+
+(def warn (poartial lousy-logger :warn))
+
+(warn "Red Light ahead")
+; "red light ahead"
+
+(defn identify-humans
+  [social-security-numbers]
+  (filter #(not (vampire? %))
+          (map vampire-related-details social-security-numbers)))
+
+; look at the first argument to `filter`. It's so common to want the complement
+; (the negation) of a Boolean function that there's a function, `complement`, for
+; that
+
+(defn not-vampire? (complement vampire?))
+(defn identify-humans
+  [social-security-numbers]
+  (filter not-vampire?
+          (map vampire-related-details social-security-numbers)))
