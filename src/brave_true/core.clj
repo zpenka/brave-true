@@ -354,3 +354,34 @@
 ; another
 (concat [1 2] [3 4])
 ; (1 2 3 4)
+
+; Lazy Seqs
+
+; Many functions, including `map` and `filter`, return lazy seqs. Lazy seqs
+; members aren't computed until you try to access them. Computing a seq's
+; members is called _realizing_ the seq
+
+; Deferring computation until the moment it's needed makes programs more efficient
+; and it has the benefit of allowing you to construct infinite sequences
+
+(def vampire-database
+  {0 {:makes-blood-puns? false :has-pulse? true :name "McFishwich"}
+   1 {:makes-blood-puns? false :has-pulse? true :name "McMackson"}
+   2 {:makes-blood-puns? true :has-pulse? false :name "Damon Salvatore"}
+   3 {:makes-blood-puns? true :has-pulse? true :name "Mickey Mouse"}})
+
+(defn vampire-related-details
+  [social-security-number]
+  (Thread/sleep 1000)
+  (get vampire-database social-security-number))
+
+(defn vampire?
+  [record]
+  (and (:makes-blood-puns? record)
+       (not (:has-pulse? record))
+       record))
+
+(defn identify-vampire
+  [social-security-numbers]
+  (first (filter vampire?
+                 (map vampire-related-details social-security-numbers))))
