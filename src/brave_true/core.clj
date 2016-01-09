@@ -312,3 +312,45 @@
 
 ; This will drop all the January entries, and then use `take-while` on the result
 ; to keep taking entries until it reaches the first April one
+
+; `filter` and `some`
+
+; Use `filter` to return all elements of a sequence that test true for a predicate
+; function. Here are all the journal entries where human consumption is less than
+; 5 liters
+
+(filter #(< (:human %) 5) food-journal)
+
+; Often you want to know whether a collection contains any values that test
+; true for a predicate function
+; The `some` function will do that, returning the first truthy value returned
+; by the predicate function
+
+(some #(> (:critter %) 5) food-journal)
+; nil
+
+(some #(> (:critter %) 3) food-journal)
+; true
+
+; `sort` and `sort-by`
+
+; You can sort elements in ascending order with `sort`
+(sort [3 1 2])
+; (1 2 3)
+
+; If your sorting needs are more complicated, use `sort-by`, which allows you to
+; apply a function (sometimes called a key function) to the elements of a sequence
+; and use the values it returns to determine the sort order
+
+(sort-by count ["aaa" "c" "bb"])
+; ("c" "bb" "aaa")
+
+; `sort` would have sorted them in alphabetical order, instead we sorted by the
+; length of each element via `count`
+
+; `concat`
+
+; Finally, `concat` simply appends the members of one sequence to the end of
+; another
+(concat [1 2] [3 4])
+; (1 2 3 4)
