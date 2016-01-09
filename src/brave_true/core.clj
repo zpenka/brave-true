@@ -267,3 +267,48 @@
         {:human 4.1
          :critter 3.9})
 ; {:human 4.1}
+
+; `take`, `drop`, `take-while`, and `drop-while`
+
+; `take` and `drop` both take two arguments: a number and a sequence
+; `take` returns the first n elements of the sequence
+; `drop` returns the sequence with the first n elements removed
+
+(take 3 [1 2 3 4 5 6 7 8 9 10])
+; (1 2 3)
+
+(drop 3 [1 2 3 4 5 6 7 8 9 10])
+; (4 5 6 7 8 9 10)
+
+; `take-while` and `drop-while` take a predicate function (return value is
+; evaluated for truth or falsity) to determine when it should stop taking or
+; dropping
+
+(def food-journal
+  [{:month 1 :day 1 :human 5.3 :critter 2.3}]
+  [{:month 1 :day 2 :human 5.1 :critter 2.0}]
+  [{:month 2 :day 1 :human 4.9 :critter 2.1}]
+  [{:month 2 :day 2 :human 5.0 :critter 2.5}]
+  [{:month 3 :day 1 :human 4.2 :critter 3.3}]
+  [{:month 3 :day 2 :human 4.0 :critter 3.8}]
+  [{:month 4 :day 1 :human 3.7 :critter 3.9}]
+  [{:month 4 :day 2 :human 3.7 :critter 3.6}])
+
+; With `take-while`, we could retrieve January's and February's data
+; `take-while` traverses the sequence, appluying the predicate function to each
+; element
+
+(take-while #(< (:month %) 3) food-journal)
+
+; When `take-while` reaches the first March entry, the anonymous function returns
+; `false`, and `take-while` returns the sequence of every element it tested
+; until that point
+
+; The same idea applies with `drop-while` except that it keeps dropping elements
+; until one tests true
+
+(take-while #(< (:month %) 4)
+            (drop-while #(< (:month %) 2) food-journal))
+
+; This will drop all the January entries, and then use `take-while` on the result
+; to keep taking entries until it reaches the first April one
