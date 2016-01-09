@@ -385,3 +385,21 @@
   [social-security-numbers]
   (first (filter vampire?
                  (map vampire-related-details social-security-numbers))))
+
+; Infinite Sequences
+
+(concat (take 8 (repeat "na")) ["Batman!"])
+
+; `repeat` returns an infinite sequence where each element is it's argument, in
+; this case, "na"
+
+; You can also use `repeatedly`, which will call the provided function to
+; generate each element in the sequence
+
+(take 3 (repeatedly (fn [] (rand-int 10))))
+
+(defn even-numbers
+  ([] (even-numbers 0))
+  ([n] (cons n (lazy-seq (even-numbers (+ n 2))))))
+
+(take 10 (even-numbers))
