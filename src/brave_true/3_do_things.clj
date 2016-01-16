@@ -1,5 +1,5 @@
 ; Chapter 3: Do Things: A Clojure Crash Course
-(ns do-things.core)
+(ns brave-true.3-do-things)
 
 ; The Shire's Next Top Model
 (def asym-hobbit-body-parts

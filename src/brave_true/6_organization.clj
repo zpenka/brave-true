@@ -1,3 +1,5 @@
+(ns brave-true.6-organization)
+
 ; Get name of current namespace
 (ns-name *ns*)
 
@@ -18,14 +20,6 @@
 
 ; full map
 (ns-map *ns*)
-
-; you can `deref` vars to get the object they point to
-(deref #'user/great-books)
-; => ["East of Eden" "The Glass Bead Game"]
-
-; or, more simply
-great-books
-; => ["East of Eden" "The Glass Bead Game"]
 
 ; Uh oh
 (def great-books ["The Power of Bees" "Journey to Upstairs"])

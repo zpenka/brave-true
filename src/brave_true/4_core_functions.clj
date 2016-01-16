@@ -1,5 +1,5 @@
 ; Chapter 4: Core Functions In Depth
-(ns core-functions.core)
+(ns brave-true.4-core-functions)
 
 ; Note: This chapter has a lot of semantic, abstract concepts that are new or
 ;       not solid in my understanding of them. Thus, I will be taking notes in

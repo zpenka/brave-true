@@ -1,5 +1,5 @@
 ; Chapter 5: Functional Programming
-(ns functional-programming.core)
+(ns brave-true.5-functional-programming)
 
 ; Pure Functions
 
